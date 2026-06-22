@@ -1,0 +1,94 @@
+{
+  "title" : "v2 Risk Management and threat modeling",
+  "description" : "Learning Module 2 – Risk Management on the CyberRangeCZ Platform.",
+  "prerequisites" : [ ],
+  "outcomes" : [ ],
+  "state" : "UNRELEASED",
+  "levels" : [ {
+    "title" : "Learning Module 2 – Risk Management",
+    "level_type" : "INFO_LEVEL",
+    "order" : 0,
+    "estimated_duration" : 0,
+    "minimal_possible_solve_time" : null,
+    "content" : "# riskmanagementrita-crcz\n\nIt contains all KYPO/CRCZ exercises required for **Learning Module 2 – Risk Management** on the [CyberRangeCZ Platform](https://docs.platform.cyberrange.cz/).\n\n## Exercises\n\n- `Exercise 1`: Risk assessment and threat modelling in a **banking system**  \n\nBased on:\n![Diagram banking](https://github.com/NG-SOC-eu/riskmanagementrita-crcz/blob/v1/static/diagram_banking.png?raw=true)\n\n- `Exercise 2`: ICS/SCADA-focused risk assessment for an **energy infrastructure**\n\nBased on:\n![Diagram energy](https://github.com/NG-SOC-eu/riskmanagementrita-crcz/blob/v1/static/diagram_energy.png?raw=true)\n\n## Roles Targeted\n\n- Cybersecurity Risk Manager\n- Security Architect\n- OT/ICS Security Analyst\n\n## Standards and Frameworks\n\n- MITRE ATT&CK\n- STRIDE Threat Modelling\n- ENISA ECSF Competence Mapping\n- ISO 27005, IEC 62443 (for ICS)\n\n## Using RITA\n\nRITA (Risk Identification and Threat Assessment) provides a web interface for cataloguing assets, mapping threats and recording risk calculations throughout the exercises. Access it from any machine in the training environment using:\n\n- **URL:** [RITA](https://ng-soc.eurodyn.com/login)\n- **Username: reviewer**\n- **Password: qwerty!23**\n\nRefer to the [RITA guide](https://github.com/NG-SOC-eu/riskmanagementrita-crcz/blob/main/content/rita_guide.md?raw=true) for step-by-step instructions on logging in, creating assets, mapping threats and vulnerabilities, evaluating risk, and importing data. The exercises require using RITA to build asset inventories, model threats and document overall risk evaluations.\n\n## Getting Started\n\nOnce the environment has been deployed, connect via **SSH** to the desired host using the management account `debian`:\n\n```bash\nssh debian@<IP or host-name>\n```\n\nThe default password is usually **``qwerty!23``** unless the instructor states otherwise.\n\nRecommended workflow:\n\n1. Open a terminal in the CRCZ interface and first connect to the main analyst machine (`bank-analyst` or `corp-workstation`) or you can also right-click on each system in the topology on the right to access SSH or GUI interface.\n2. From there, access the remaining scenario machines with `ssh`.\n3. Refer to the exercise guide.\n4. Save notes and evidence in your home directory (`/home/debian`) or in the location specified by the course."
+  }, {
+    "title" : "RITA Guide",
+    "level_type" : "INFO_LEVEL",
+    "order" : 1,
+    "estimated_duration" : 0,
+    "minimal_possible_solve_time" : null,
+    "content" : "# RITA Quick Guide\n\nThis guide summarises the main steps for working with RITA (Risk Identification and Threat Assessment).\n\n[Download RITA Guide](https://github.com/NG-SOC-eu/riskmanagementrita-crcz/blob/main/content/RITA.pdf?raw=true)\n\n## Login\n1. Navigate to [RITA](https://ng-soc.eurodyn.com/login).\n2. Enter the username: **reviewer** and password: **qwerty!23** provided in the exercise.\n3. Click **Log In** to access the dashboard.\n\n## Asset Creation\n1. From the dashboard, choose **Assets → Add Asset**.\n2. Provide name, description, and owner.\n3. Save the asset; repeat for each system component.\n\n## Threat and Vulnerability Mapping\n1. Open an asset and use **Threats → Add Threat** to assign relevant threats.\n2. Link vulnerabilities via **Vulnerabilities → Add Vulnerability**.\n3. Capture references or evidence in the provided fields.\n\n## Risk Evaluation\n1. Within the asset, select **Risk Evaluation**.\n2. Estimate likelihood and impact; RITA calculates the risk score.\n3. Document existing controls and recommended treatments.\n\n## Imports\n1. Use **Data Import** in the main menu to upload CSV or JSON templates.\n2. Map incoming fields to RITA’s schema and run the import.\n3. Review imported records for accuracy.\n"
+  }, {
+    "title" : "Exercise 1 – Risk Assessment and Threat Modelling for a Banking System (PUC1 – Financial Sector)",
+    "level_type" : "TRAINING_LEVEL",
+    "order" : 2,
+    "estimated_duration" : 240,
+    "minimal_possible_solve_time" : null,
+    "answer" : "Yes",
+    "answer_variable_name" : null,
+    "content" : "# Exercise 1 – Risk Assessment and Threat Modelling for a Banking System (PUC1 – Financial Sector)\n\n## Scenario\nYou are the Cybersecurity Risk Manager for a major retail bank offering online services. Recent threat intelligence reports indicate that cybercriminal groups are targeting banking web applications and payment systems to commit fraud and exfiltrate sensitive customer data. Explore the virtual machines (`bank-analyst`, `bank-web`, `bank-db`) to identify high-value assets and possible attack paths.\n\n### Environment Diagram\n![Banking topology](https://github.com/NG-SOC-eu/riskmanagementrita-crcz/blob/v1/static/diagram_banking.png?raw=true)\n\n### Connection Guide\n1. Open a terminal in the CyberRangeCZ interface.\n2. Connect to the analysis workstation:\n   ```bash\n   ssh debian@bank-analyst\n   ```\n   Password: **qwerty!23**\n\n      **`You can also right-click on each system in the topology on the right to access SSH or GUI interface.`**\n\n3. From `bank-analyst`, connect to the web server and database:\n   ```bash\n   ssh debian@bank-web\n   ssh debian@bank-db\n   ```\n   Password: **qwerty!23**\n\n      **`You can also right-click on each system in the topology on the right to access SSH or GUI interface.`**\n\n4. Use `nmap` to scan services on `bank-web` and `bank-db` and `wireshark` (or `tcpdump`) to capture traffic between the machines.\n\n## Steps\n1. Map critical assets and data flows between the provided machines.\n2. Log into RITA and model bank assets, threats, and countermeasures following the [RITA guide](rita_guide.md).\n3. Build threat scenarios using STRIDE and MITRE ATT&CK techniques.\n4. Assess the likelihood and impact of each scenario.\n5. Propose mitigations and prioritise them in a risk treatment plan.\n6. Prepare documentation for technical and executive audiences.\n\n## Deliverables\nThe exercise report should include:\n- **Threat model** – A diagram or table describing assets and mapped threats.\n- **Risk matrix** – A 5×5 grid (likelihood vs. impact). Example template:\n  | Impact \\ Likelihood | Very Low | Low | Medium | High | Critical |\n  |---------------------|----------|-----|--------|------|----------|\n  | Very Low            |          |     |        |      |          |\n  | Low                 |          |     |        |      |          |\n  | Medium              |          |     |        |      |          |\n  | High                |          |     |        |      |          |\n  | Critical            |          |     |        |      |          |\n- **RITA risk evaluation results** – Export or screenshot the risk assessment output from RITA.\n- **Risk treatment plan** – Recommended mitigations ordered by priority.\n- **Executive summary** – One page of key findings for leadership.\n\n## Target Roles\n- Cybersecurity Risk Manager\n- Security Architect\n- SOC Analyst\n\n## Reflection Prompts\n- Which threats require immediate mitigation and why?\n- How would you communicate residual risk to leadership?\n\n## Skills Covered\n- Threat modelling, risk analysis, control design\n- Risk communication and prioritisation\n- Strategic decision-making under uncertainty\n\n## Once you have completed the exercise, submit Yes to move on to the next level/exercise.",
+    "solution" : "Once you have completed the exercise, submit Yes to move on to the next level/exercise.",
+    "solution_penalized" : true,
+    "hints" : [ {
+      "title" : "Hint 1",
+      "content" : "Hint 1 – Focus of the exercise (light)\n\nLook at the customer-facing systems in the banking diagram (e.g. online banking portal, mobile banking, external web services). Which of these are reachable from the internet and process sensitive data such as credentials or account information?",
+      "hint_penalty" : 0,
+      "order" : 0
+    }, {
+      "title" : "Hint 2",
+      "content" : "Hint 2 – Data flows and trust boundaries (medium)\n\nTrace how a user request travels from the internet to the back-end systems:\n\nWhere is the first point of entry from the public internet?\n\nThrough which components does the traffic pass before reaching the core banking database?\n\nWhere would you logically draw trust boundaries (e.g. internet ↔ DMZ, DMZ ↔ internal network)?\n\nUse these boundaries to guide where threats are most likely and most impactful.",
+      "hint_penalty" : 0,
+      "order" : 1
+    }, {
+      "title" : "Hint 3",
+      "content" : "Hint 3 – Typical threat patterns (strong)\n\nThink about very common banking threats:\n\nCredential attacks against the online banking portal (e.g. password guessing, credential stuffing).\n\nInjection attacks (e.g. SQL injection) from the web application into the database.\n\nSession hijacking between client and web front-end.\n\nPrivilege misuse or insider abuse on admin or support systems.\n\nDenial of service on external web services that would disrupt customer access.\n\nIf you’re stuck, pick 2–3 critical assets (e.g. “Online banking web front-end”, “Core banking DB”, “Authentication service”) and for each one:\n\nIdentify at least one STRIDE category that clearly applies.\n\nMap it to one ATT&CK technique as an example.\n\nEstimate likelihood and impact and record it in RITA.",
+      "hint_penalty" : 0,
+      "order" : 2
+    } ],
+    "incorrect_answer_limit" : 100,
+    "attachments" : [ ],
+    "max_score" : 100,
+    "variant_answers" : false,
+    "reference_solution" : [ ],
+    "mitre_techniques" : [ ],
+    "expected_commands" : [ ],
+    "commands_required" : true
+  }, {
+    "title" : "Exercise 2 – Risk Assessment and Threat Modelling for an Energy Infrastructure (PUC3 – ICS Sector)",
+    "level_type" : "TRAINING_LEVEL",
+    "order" : 3,
+    "estimated_duration" : 240,
+    "minimal_possible_solve_time" : null,
+    "answer" : "Yes",
+    "answer_variable_name" : null,
+    "content" : "# Exercise 2 – Risk Assessment and Threat Modelling for an Energy Infrastructure (PUC3 – ICS Sector)\n\n## Scenario\nYou are acting as the Cybersecurity Risk Manager for a national power transmission operator. The environment includes IT/OT interconnection, SCADA servers, RTUs and engineering workstations. Alerts about ICS-specific malware highlight the need for proactive risk analysis. Use the virtual machines (`corp-workstation`, `scada-server`, `substation-rtu`) to explore how the IT and OT networks interact.\n\n### Environment Diagram\n![Energy topology](https://github.com/NG-SOC-eu/riskmanagementrita-crcz/blob/v1/static/diagram_energy.png?raw=true)\n\n### Connection Guide\n1. Open a terminal via the CyberRangeCZ interface.\n2. Connect to the corporate workstation:\n   ```bash\n   ssh debian@corp-workstation\n   ```\n   Password: **qwerty!23**\n\n   **`You can also right-click on each system in the topology on the right to access SSH or GUI interface.`**\n\n3. From there, connect to the SCADA server and the substation RTU:\n   ```bash\n   ssh debian@scada-server\n   ssh debian@substation-rtu\n   ```\n   Password: **qwerty!23**\n\n   **`You can also right-click on each system in the topology on the right to access SSH or GUI interface.`**\n\n4. Use tools such as `nmap` to map reachable services and `wireshark` to inspect industrial protocols.\n\n## Steps\n1. Identify ICS and IT assets critical to operations.\n2. Use RITA to model ICS assets, potential threats and vulnerabilities as described in the [RITA guide](rita_guide.md).\n3. Model threat scenarios such as malware propagation from IT to OT, insider manipulation of SCADA and unauthorised RTU commands.\n4. Assess safety, operational and strategic impact.\n5. Recommend controls suited for industrial environments.\n6. Summarise findings in a risk report for leadership and engineers.\n\n## Deliverables\nYour submission should include:\n- **ICS threat model** – Diagram or table highlighting data flows and attack vectors.\n- **Risk matrix** – Use a 5×5 format considering operational impact. Example template:\n  | Impact \\ Likelihood | Very Low | Low | Medium | High | Critical |\n  |---------------------|----------|-----|--------|------|----------|\n  | Very Low            |          |     |        |      |          |\n  | Low                 |          |     |        |      |          |\n  | Medium              |          |     |        |      |          |\n  | High                |          |     |        |      |          |\n  | Critical            |          |     |        |      |          |\n- **RITA-generated risk report** – Export outlining energy infrastructure assets, threats and vulnerabilities.\n- **Mitigation plan** – Prioritised recommendations for protecting the OT network.\n- **Cyber risk report** – Summary for technical leads and executives.\n\n## Target Roles\n- Cybersecurity Risk Manager\n- OT/ICS Security Analyst\n- Security Architect\n\n## Reflection Prompts\n- What is the most significant safety risk identified?\n- Which mitigations are most challenging to implement and why?\n\n## Skills Covered\n- ICS/OT-specific risk management\n- Security architecture for critical infrastructure\n- Balancing availability, safety and cyber defences\n\n## Once you have completed the exercise, submit Yes to move on to the next level/exercise.",
+    "solution" : "Once you have completed the exercise, submit Yes to move on to the next level/exercise.",
+    "solution_penalized" : true,
+    "hints" : [ {
+      "title" : "Hint 3",
+      "content" : "Hint 3 – ICS-specific threats (strong)\n\nConsider threats that are particularly worrying for energy/ICS environments:\n\nUnauthorised remote access into the SCADA or engineering workstation from the corporate network or the internet.\n\nManipulation of PLC logic (changing control programs to alter physical processes).\n\nMalicious or misconfigured firmware updates on field devices.\n\nLoss of visibility (historian or HMI unavailable) leading to operators making poor decisions.\n\nPropagation of malware from IT into OT (e.g. via shared services, file transfers, or jump hosts).\n\nIn RITA, ensure you:\n\nMark safety-critical and availability-critical assets clearly (e.g. “High” impact if stopped or compromised).\n\nExplicitly document the connection between corporate and ICS networks as an asset/threat focus.\n\nPrioritise risks where a single compromise path could lead from the internet or corporate IT into the control network.",
+      "hint_penalty" : 0,
+      "order" : 2
+    }, {
+      "title" : "Hint 2",
+      "content" : "Hint 2 – Zones, conduits, and access paths (medium)\n\nThink in terms of zones and conduits (as in IEC 62443):\n\nWhich systems form the control zone (e.g. PLCs, HMIs, SCADA server)?\n\nHow does the corporate network connect to the control network (jump hosts, VPN, firewall rules)?\n\nWhere is remote access into the ICS environment allowed (e.g. for maintenance)?\n\nThe paths crossing from IT to OT are usually high-risk and should be clearly reflected as high-priority assets and links in your RITA model.",
+      "hint_penalty" : 0,
+      "order" : 1
+    }, {
+      "title" : "Hint 1",
+      "content" : "Hint 1 – Identify OT vs IT (light)\n\nStart by separating corporate IT systems (e.g. office network, business apps, email) from the OT/ICS environment (SCADA server, HMIs, PLCs, historians, engineering workstations). Which of these, if disrupted, would have a direct effect on physical operations?",
+      "hint_penalty" : 0,
+      "order" : 0
+    } ],
+    "incorrect_answer_limit" : 100,
+    "attachments" : [ ],
+    "max_score" : 100,
+    "variant_answers" : false,
+    "reference_solution" : [ ],
+    "mitre_techniques" : [ ],
+    "expected_commands" : [ ],
+    "commands_required" : true
+  } ],
+  "estimated_duration" : 480,
+  "variant_sandboxes" : false
+}
